@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
@@ -48,7 +48,139 @@
   </script>
 
   <!-- Estilos Modulares -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+/* ==========================================================================
+   Estilos Personalizados · Didáctica de la Educación Infantil SPA
+   ========================================================================== */
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+  transition: background-color 0.2s ease, font-size 0.2s ease;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Efecto de cristal translúcido (Glassmorphism) */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Scrollbar personalizada sutil */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Transiciones interactivas en botones y tarjetas */
+.badge-pill {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.resource-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.resource-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Animación de pulso suave para indicadores activos */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.95); }
+}
+.live-dot {
+  animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Botón de favoritos interactivo */
+.btn-fav {
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+.btn-fav:hover {
+  transform: scale(1.15);
+}
+.btn-fav.active {
+  color: #f59e0b !important;
+}
+
+/* ==========================================================================
+   Modo Pizarra Digital Interactiva (PDI) / Modo Proyector
+   Optimiza el contraste y la tipografía para proyección en el aula
+   ========================================================================== */
+body.projector-mode {
+  background-color: #f1f5f9;
+}
+
+body.projector-mode .resource-card {
+  border-width: 2px;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body.projector-mode .resource-card h3 {
+  font-size: 1.25rem !important;
+  line-height: 1.35;
+}
+
+body.projector-mode .resource-card p {
+  font-size: 0.95rem !important;
+  line-height: 1.5;
+  color: #334155 !important;
+}
+
+body.projector-mode aside {
+  display: none !important;
+}
+
+body.projector-mode main section.lg\:col-span-9 {
+  grid-column: span 12 / span 12 !important;
+}
+
+/* ==========================================================================
+   Reglas para Impresión de Materiales del Aula (@media print)
+   ========================================================================== */
+@media print {
+  header,
+  aside,
+  #filter-types-container,
+  #teacher-tools,
+  .btn-fav,
+  #toast,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .resource-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #94a3b8 !important;
+    transform: none !important;
+  }
+}
+
+  </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col custom-scrollbar">
 
@@ -592,9 +724,1746 @@
     </div>
   </div>
 
-  <!-- Scripts Modulares (Arquitectura Serverless Zero-Build) -->
-  <script src="js/data.js"></script>
-  <script src="js/sheets.js"></script>
-  <script src="js/app.js"></script>
+  <!-- Scripts de la Aplicación (Autocontenidos para GitHub Pages y Navegador) -->
+  <script>
+/**
+ * Catálogo de Unidades Didácticas y Recursos Predeterminados
+ * Módulo: Didáctica de la Educación Infantil (Ciclo Superior TSEI)
+ */
+
+const DEFAULT_UNITS = [
+  { id: 'u0', title: 'Unidad 0', subtitle: 'Presentación y Evaluación Inicial', icon: 'fa-compass' },
+  { id: 'u1', title: 'Unidad 1', subtitle: 'La atención a la primera infancia', icon: 'fa-baby' },
+  { id: 'u2', title: 'Unidad 2', subtitle: 'Bases psicopedagógicas de la educación infantil', icon: 'fa-brain' },
+  { id: 'u3', title: 'Unidad 3', subtitle: 'Metodologías en educación infantil', icon: 'fa-cubes' },
+  { id: 'u4', title: 'Unidad 4', subtitle: 'Recursos educativos en educación infantil', icon: 'fa-palette' },
+  { id: 'u5', title: 'Unidad 5', subtitle: 'Organización de Centros', icon: 'fa-school' },
+  { id: 'u6', title: 'Unidad 6', subtitle: 'El desarrollo curricular', icon: 'fa-book-bookmark' },
+  { id: 'u7', title: 'Unidad 7', subtitle: 'La programación en el desarrollo curricular', icon: 'fa-list-check' },
+  { id: 'u8', title: 'Unidad 8', subtitle: 'La evaluación en educación infantil', icon: 'fa-clipboard-check' },
+  { id: 'u9', title: 'Unidad 9', subtitle: 'Organización de la intervención socioeducativa', icon: 'fa-people-roof' },
+];
+
+const DEFAULT_RESOURCES = [
+  // ==========================================
+  // UNIDAD 0: Presentación y Evaluación Inicial
+  // ==========================================
+  { 
+    unit: 'u0', 
+    title: 'Plantilla de observación (Periodo de adaptación)', 
+    desc: 'Instrumento para evaluar el periodo inicial de adaptación del alumnado de 0 a 3 años.', 
+    type: 'Apuntes', 
+    url: 'https://docs.google.com/document/d/1X557_SBP9J8TyFF8Xr9sCjat-oAZ3N-nn_pClbaArME/copy',
+    tags: ['Adaptación', 'Observación', 'Evaluación Inicial', '0-3 años']
+  },
+  { 
+    unit: 'u0', 
+    title: 'Test de Inteligencias Múltiples', 
+    desc: 'Formulario de detección para perfiles de aprendizaje según Howard Gardner.', 
+    type: 'Documento', 
+    url: 'https://forms.gle/ypdRwgXPD9JZMidHA',
+    tags: ['Gardner', 'IIMM', 'Diagnóstico']
+  },
+  { 
+    unit: 'u0', 
+    title: 'Cuestionario del ciclo formativo', 
+    desc: 'Evaluación diagnóstica inicial para el módulo de Didáctica.', 
+    type: 'Apuntes', 
+    url: 'https://docs.google.com/document/d/1Fksc1h3q1b-AOE92uttbCShQycnKloRkL-AkgvbOgfQ/copy',
+    tags: ['Evaluación Inicial', 'Diagnóstico', 'FP TSEI']
+  },
+  { 
+    unit: 'u0', 
+    title: 'Gráfica de potenciales (IIMM)', 
+    desc: 'Hoja de cálculo para el registro y baremación de inteligencias múltiples.', 
+    type: 'Documento', 
+    url: 'https://docs.google.com/spreadsheets/d/1xd6OEJ09u7nHKSL4CnTgqUcjx2CwBlOsclKxsfyOqAE/edit#gid=0',
+    tags: ['Gardner', 'Registro', 'Hojas de Cálculo']
+  },
+  { 
+    unit: 'u0', 
+    title: 'Tutorial Google Classroom para alumnos', 
+    desc: 'Videotutorial paso a paso sobre el manejo de la plataforma de aula virtual.', 
+    type: 'Videos', 
+    url: 'https://youtu.be/MycvBy8LSN4',
+    tags: ['Classroom', 'TIC', 'Aula Virtual']
+  },
+  { 
+    unit: 'u0', 
+    title: 'Google Classroom Guía Rápida', 
+    desc: 'Recurso audiovisual complementario para el alumnado de FP.', 
+    type: 'Videos', 
+    url: 'https://youtu.be/CYUUb9YT6ec',
+    tags: ['Classroom', 'Guía Rápida']
+  },
+  { 
+    unit: 'u0', 
+    title: 'Presentación módulo de Didáctica de la educación infantil', 
+    desc: 'Objetivos, competencias profesionales, criterios de evaluación y plataformas que utilizamos para aprender.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1rJN2i9W9nMYlmc59BmjwYNH7ATGrvGfg/view?usp=sharing',
+    tags: ['Competencias FP', 'Criterios Evaluación', 'Presentación']
+  },
+
+  // ==========================================
+  // UNIDAD 1: La atención a la primera infancia
+  // ==========================================
+  { 
+    unit: 'u1', 
+    title: 'Presentación U.D.1: La atención a la primera infancia', 
+    desc: 'Diapositivas y esquemas centrales de la Unidad Didáctica 1.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/12Kdf5WLeUqnbsHaDuJKa09vCA2GoqIxP/view?usp=sharing',
+    tags: ['Marco Teórico', 'Primera Infancia', '0-3 años']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Contenido del Tema: La atención a la primera infancia', 
+    desc: 'Apuntes completos y marco conceptual de la unidad.', 
+    type: 'Apuntes', 
+    url: 'https://drive.google.com/file/d/1B-_gaDCzA-q--z0iIzrERXRjo2JbtIFK/view?usp=drive_link',
+    tags: ['Apuntes', 'Marco Conceptual']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Vídeo resumen de la presentación U.D.1', 
+    desc: 'Resumen en formato vídeo de los contenidos clave de la unidad.', 
+    type: 'Videos', 
+    url: 'https://docs.google.com/videos/d/1R0Lbi9alrhZ34SDKxwKENFf3PffL6-f_mb_-1DPkXlo/play?usp=sharing',
+    tags: ['Resumen', 'Vídeo Lección']
+  },
+  { 
+    unit: 'u1', 
+    title: 'La infancia según Tonucci: diez ideas clave', 
+    desc: 'Escuela con cerebro. Análisis de las 10 ideas clave sobre el bienestar infantil.', 
+    type: 'Material Complementario', 
+    url: 'https://escuelaconcerebro.wordpress.com/2020/02/27/la-infancia-segun-tonucci-diez-ideas-clave/',
+    tags: ['Tonucci', 'Bienestar Infantil', 'Pedagogía']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Conferencia de Francesco Tonucci: La importancia de los primeros años', 
+    desc: 'Reflexión sobre el valor intrínseco de los primeros años de vida en la educación infantil.', 
+    type: 'Videos', 
+    url: 'https://youtu.be/6jcy9rpfQ2A',
+    tags: ['Tonucci', 'Conferencia', 'Primeros Años']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Modificación del artículo 15 de la Ley Orgánica 2/2006 (LOE/LOMLOE)', 
+    desc: 'Ley Orgánica de Educación: principios de gratuidad y fomento del primer ciclo.', 
+    type: 'Normativa', 
+    url: 'https://www.boe.es/buscar/act.php?id=BOE-A-2006-7899',
+    tags: ['LOMLOE', 'LOE', 'Normativa', 'Artículo 15']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Ley de protección integral a la infancia y la adolescencia (LOPIVI)', 
+    desc: 'Ley Orgánica 8/2021, de 4 de junio, frente a la violencia en entornos educativos y de ocio.', 
+    type: 'Normativa', 
+    url: 'https://www.boe.es/buscar/act.php?id=BOE-A-2021-9347',
+    tags: ['LOPIVI', 'Protección', 'Normativa', 'Derechos Infancia']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Orden de 17 de julio de 2018: Puesta en marcha de casas nido', 
+    desc: 'Bases reguladoras de ayudas y requisitos técnicos en Galicia (Artículo 2).', 
+    type: 'Normativa', 
+    url: 'https://politicasocial.xunta.gal/es/recursos/ayudas/orden-de-17-de-julio-de-2018-por-la-que-se-establecen-las-bases-que-regiran-el',
+    tags: ['Casas Nido', 'Modelos Alternativos', 'Normativa']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Red Nacional de Madres de Día', 
+    desc: 'Modelo pedagógico de acompañamiento en el hogar familiar para menores de 0 a 3 años.', 
+    type: 'Recursos web', 
+    url: 'https://www.madresdedia.org/',
+    tags: ['Madres de Día', 'Modelos Alternativos', '0-3 años']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Plan Corresponsables: Cuidado de menores de 14 años', 
+    desc: 'Marco para la conciliación de la vida familiar y laboral y dignificación de los cuidados.', 
+    type: 'Material Complementario', 
+    url: 'https://www.uso.es/plan-corresponsables/',
+    tags: ['Conciliación', 'Cuidados', 'Políticas Sociales']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Definición de la figura del TSEI (Real Decreto 1349/2007)', 
+    desc: 'Cualificación oficial y competencias profesionales del Técnico Superior en Educación Infantil.', 
+    type: 'Normativa', 
+    url: 'https://www.boe.es/buscar/doc.php?id=BOE-A-2007-20201',
+    tags: ['TSEI', 'Competencias', 'Normativa', 'Perfil Profesional']
+  },
+  { 
+    unit: 'u1', 
+    title: 'Documento Resumen Unidad 1', 
+    desc: 'Guía visual completa para repasar los contenidos principales de la unidad.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1PTRWn8_M8mBUI862nNzHdf-U3_63Hqj6/view?usp=sharing',
+    tags: ['Resumen', 'Guía Visual']
+  },
+
+  // ==========================================
+  // UNIDAD 2: Bases psicopedagógicas de la EI
+  // ==========================================
+  { 
+    unit: 'u2', 
+    title: 'Presentación U.D.2: Bases psicopedagógicas', 
+    desc: 'Principales teorías del aprendizaje, cognición y modelos pedagógicos contemporáneos.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/19QcSAQ2EWfFzw3VUqNvcwbJBRpYrYfE7/view?usp=drive_link',
+    tags: ['Teorías Aprendizaje', 'Psicología Evolutiva']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Estrategias para aprender mejor (Bárbara Oakley)', 
+    desc: 'Enfoque neuroeducativo sobre aprendizaje focalizado y difuso (Aprendemos Juntos BBVA).', 
+    type: 'Videos', 
+    url: 'https://aprendemosjuntos.bbva.com/especial/estrategias-para-aprender-mejor-barbara-oakley/',
+    tags: ['Neuroeducación', 'Oakley', 'Metacognición']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Pedagogos clásicos: Carpeta de Recursos', 
+    desc: 'Montessori, Freinet, Piaget, Paulo Freire, John Dewey y Lorenzo Milani.', 
+    type: 'Material Complementario', 
+    url: 'https://drive.google.com/drive/folders/1hxmJEXlqKosn6X6bPyCPJ_m5ssOiJ_J1?usp=sharing',
+    tags: ['Montessori', 'Freinet', 'Piaget', 'Freire', 'Dewey']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Escenas pedagógicas: La lengua de las mariposas', 
+    desc: 'Fragmentos de cine para reflexionar sobre la relación maestro-aprendiz y la libertad.', 
+    type: 'Videos', 
+    url: 'https://www.youtube.com/watch?v=IEzOxMriGTE',
+    tags: ['Cine y Educación', 'Reflexión Pedagógica']
+  },
+  { 
+    unit: 'u2', 
+    title: 'L\'école buissonnière (Célestin Freinet, 1949)', 
+    desc: 'Película sobre la pedagogía cooperativa y la imprenta escolar de Célestin Freinet.', 
+    type: 'Videos', 
+    url: 'https://www.facebook.com/watch/?v=847908058706971',
+    tags: ['Freinet', 'Pedagogía Activa', 'Historia']
+  },
+  { 
+    unit: 'u2', 
+    title: 'La Institución Libre de Enseñanza (ILE)', 
+    desc: 'Historia y trascendencia de la renovación pedagógica impulsada por Giner de los Ríos.', 
+    type: 'Videos', 
+    url: 'https://youtu.be/21P16rKarQ4?si=f9zPrfslR9O827y3',
+    tags: ['ILE', 'Renovación Pedagógica', 'Historia']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Repaso de autores, teorías y aportaciones', 
+    desc: 'Cuadro comparativo con los grandes referentes de la educación infantil.', 
+    type: 'Apuntes', 
+    url: 'https://drive.google.com/file/d/17BXwofgZvh6Xyov3oTfInAHdlNOmO935/view?usp=sharing',
+    tags: ['Autores', 'Cuadro Comparativo', 'Apuntes']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Todo lo que me enseñaron los niños (J. A. Fernández Bravo)', 
+    desc: 'Conferencia sobre la mirada empática y didáctica en la infancia (Aprendemos Juntos 2030).', 
+    type: 'Videos', 
+    url: 'https://www.youtube.com/watch?v=6E4ct50dPKs',
+    tags: ['Fernández Bravo', 'Didáctica', 'Empatía']
+  },
+  { 
+    unit: 'u2', 
+    title: 'María Montessori: Vida y principios del método', 
+    desc: 'Biografía resumida y claves de los materiales estructurados y el ambiente preparado.', 
+    type: 'Videos', 
+    url: 'https://www.youtube.com/watch?v=Xf5bVCU90wc',
+    tags: ['Montessori', 'Ambiente Preparado', 'Materiales']
+  },
+  { 
+    unit: 'u2', 
+    title: 'La Escuela Nueva: Características y fundamentos', 
+    desc: 'Ruptura con el modelo memorístico tradicional: el niño como centro del aprendizaje.', 
+    type: 'Videos', 
+    url: 'https://www.youtube.com/watch?v=XFPZrMUgcKU',
+    tags: ['Escuela Nueva', 'Paidocentrismo']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Historia de la Escuela Nueva', 
+    desc: 'Evolución histórica y precursores del movimiento pedagógico reformador.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1CFmyzAalLLV13elRxapXwUO7Ho1aXPX3/view?usp=drive_link',
+    tags: ['Escuela Nueva', 'Historia']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Escuela Tradicional vs Escuela Nueva', 
+    desc: 'Análisis comparativo de roles, metodologías, espacio y evaluación en el aula.', 
+    type: 'Videos', 
+    url: 'https://www.youtube.com/watch?v=flV0f3h1yiQ',
+    tags: ['Comparativa', 'Modelos Pedagógicos']
+  },
+  { 
+    unit: 'u2', 
+    title: 'David Ausubel: Aprendizaje Significativo', 
+    desc: 'Video-lección sobre los organizadores previos y la asimilación cognitiva.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1ni7I19E7cufjWYMJyx2ATPq5m5VtFas7/view?usp=drive_link',
+    tags: ['Ausubel', 'Aprendizaje Significativo']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Albert Bandura: Aprendizaje Social', 
+    desc: 'Video-lección sobre el modelado vicario y la autoeficacia infantil.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/17Vv0fMpdjOBVOcH9gTiV0XC7Rl904nEK/view?usp=drive_link',
+    tags: ['Bandura', 'Aprendizaje Social', 'Modelado']
+  },
+  { 
+    unit: 'u2', 
+    title: 'B.F. Skinner: Aprendizaje por Refuerzo', 
+    desc: 'Video-lección sobre los principios del condicionamiento operante y la conducta.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1_ABs8Ln3_vQLzzOOe2jRlu_5MVTmTKaZ/view?usp=drive_link',
+    tags: ['Conductismo', 'Skinner', 'Refuerzo']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Jerome Bruner: Aprendizaje por Descubrimiento', 
+    desc: 'Video-lección sobre el andamiaje y la enseñanza en espiral.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1SD-v9aRYBROhzB47jdYzbxdSrntLe55K/view?usp=drive_link',
+    tags: ['Bruner', 'Andamiaje', 'Descubrimiento']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Vygotsky: Desarrollo Cognitivo y Relaciones Sociales', 
+    desc: 'Video-lección sobre la Zona de Desarrollo Próximo (ZDP) y mediación cultural.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1tG_k5096j9p25GxC89sd0nkvETm3KCM1/view?usp=drive_link',
+    tags: ['Vygotsky', 'ZDP', 'Constructivismo']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Vygotsky: La Teoría Sociocultural', 
+    desc: 'Video-lección sobre el lenguaje como herramienta del pensamiento.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1P5P5oxi8bKUlH3hxyCyOYWwQzf4n0Hr9/view?usp=drive_link',
+    tags: ['Vygotsky', 'Lenguaje', 'Teoría Sociocultural']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Jean Piaget: Desarrollo Cognitivo y Estadios', 
+    desc: 'Video-lección sobre asimilación, acomodación y el periodo sensoriomotor/preoperacional.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1zl-s00pQ54JkV73Sbwr3RHEZnbs2JJ0q/view?usp=drive_link',
+    tags: ['Piaget', 'Estadios', 'Sensoriomotor']
+  },
+  { 
+    unit: 'u2', 
+    title: 'Documento Resumen Unidad 2', 
+    desc: 'Guía de consolidación teórica de bases psicopedagógicas.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1QBBArQHpZFaRNzzgScnUOonZqgM82pnG/view?usp=sharing',
+    tags: ['Resumen', 'Bases Psicopedagógicas']
+  },
+
+  // ==========================================
+  // UNIDAD 3: Metodologías en educación infantil
+  // ==========================================
+  { 
+    unit: 'u3', 
+    title: 'Presentación U.D.3: Metodologías en educación infantil', 
+    desc: 'Rincones, talleres, proyectos de trabajo y juego heurístico.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1ZwS20PEH96ayxFHu8XnBs3txIETT3La0/view?usp=drive_link',
+    tags: ['Metodología', 'Rincones', 'Talleres', 'Proyectos']
+  },
+  { 
+    unit: 'u3', 
+    title: 'El cesto de los tesoros y el juego heurístico', 
+    desc: 'Propuesta de Elinor Goldschmied para el desarrollo sensorial en el primer año.', 
+    type: 'Apuntes', 
+    url: 'https://docs.google.com/document/d/1MXidEbINXub7LSC4Kd2QJu_69Cf5ws1H9sIW6gA9gMQ/edit?usp=sharing',
+    tags: ['Goldschmied', 'Cesto de los Tesoros', 'Juego Heurístico', '0-1 año']
+  },
+  { 
+    unit: 'u3', 
+    title: 'Distribución y diseño de espacios en el aula', 
+    desc: 'Ejemplos visuales de organización de zonas de juego, descanso y experimentación.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/1DROP0yYZbXBwwZbX0bnTcVTRjIeDJuoZ9TN0DZJ8nyc/edit?usp=sharing',
+    tags: ['Espacios', 'Diseño de Aula', 'Rincones']
+  },
+  { 
+    unit: 'u3', 
+    title: 'Portal ARASAAC: Recursos de Comunicación Aumentativa', 
+    desc: 'Banco de pictogramas, materiales y adaptaciones accesibles.', 
+    type: 'Recursos web', 
+    url: 'https://arasaac.org/',
+    tags: ['ARASAAC', 'Pictogramas', 'Inclusión', 'DUA']
+  },
+  { 
+    unit: 'u3', 
+    title: 'Carpeta de Fotografías: Ambientes y Talleres', 
+    desc: 'Galería de fotos de talleres, rincones de juego simbólico y cestos de los tesoros.', 
+    type: 'Material Complementario', 
+    url: 'https://drive.google.com/drive/folders/13mpcUAJFPkv6DoWru58hVf_JS6YQ7c__?usp=drive_link',
+    tags: ['Ambientes', 'Galería', 'Talleres']
+  },
+  { 
+    unit: 'u3', 
+    title: 'AMEI-WAECE: Asociación Mundial de Educadores Infantiles', 
+    desc: 'Portal web de actividades, noticias y recursos de pedagogía infantil.', 
+    type: 'Recursos web', 
+    url: 'http://www.waece.org/inicio/',
+    tags: ['WAECE', 'Recursos Pedagógicos']
+  },
+  { 
+    unit: 'u3', 
+    title: 'REDES: Howard Gardner y las Inteligencias Múltiples', 
+    desc: 'Entrevista de Eduard Punset sobre la diversidad del talento y cognición.', 
+    type: 'Videos', 
+    url: 'https://www.youtube.com/watch?v=DUJL1V0ki38',
+    tags: ['Gardner', 'REDES', 'IIMM']
+  },
+  { 
+    unit: 'u3', 
+    title: 'Trabajo por ambientes: Editorial Altamar', 
+    desc: 'Vídeo formativo con propuestas prácticas de organización del aula.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1C3gRXSzvkGGm1UVeFjEJGYdRDmvEEE0j/view?usp=sharing',
+    tags: ['Ambientes de Aprendizaje', 'Altamar']
+  },
+  { 
+    unit: 'u3', 
+    title: 'Colegio Katia Acín: Experiencia en Ambientes', 
+    desc: 'Ejemplo real de centro educativo que trabaja mediante pedagogía de ambientes.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1JP4LcEK8s4Dp4DRCr8scA2mAYFhKS2wo/view?usp=sharing',
+    tags: ['Experiencia Real', 'Ambientes']
+  },
+  { 
+    unit: 'u3', 
+    title: 'Vídeo Práctico: El cesto de los tesoros', 
+    desc: 'Demostración práctica del juego heurístico y la exploración sensorial.', 
+    type: 'Videos', 
+    url: 'https://youtu.be/IYW5UNdaoLU?si=y9X9cLomUaRR8PLA',
+    tags: ['Goldschmied', 'Vídeo Práctico', 'Sensorial']
+  },
+  { 
+    unit: 'u3', 
+    title: 'La Escuela Virtual Mirasur (0-3 años)', 
+    desc: 'Sitio web creado para compartir recursos, rutinas y propuestas en el primer ciclo.', 
+    type: 'Recursos web', 
+    url: 'https://sites.google.com/colegiomirasur.com/mirasurescuela0-3virtual/actividades',
+    tags: ['0-3 años', 'Rutinas', 'Mirasur']
+  },
+  { 
+    unit: 'u3', 
+    title: 'Trabajo colaborativo de grupo: Resumen U.D.3', 
+    desc: 'Presentación colaborativa donde el alumnado comparte aprendizajes.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/143JxUvG5-2bgCYX2Iuu8Jj6d5kezq6AZxsQ--aMwIZE/edit?usp=sharing',
+    tags: ['Trabajo Colaborativo', 'Resumen']
+  },
+
+  // ==========================================
+  // UNIDAD 4: Recursos educativos en EI
+  // ==========================================
+  { 
+    unit: 'u4', 
+    title: 'Presentación U.D.4: Recursos educativos en educación infantil', 
+    desc: 'Criterios de selección, homologación de juguetes y seguridad en las instalaciones.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/1CQB3o62cjKaeqB31X_Cx7hL7LyHDI9pwG32AwC9yu2w/edit?usp=sharing',
+    tags: ['Seguridad', 'Homologación', 'Materiales']
+  },
+  { 
+    unit: 'u4', 
+    title: 'Real Decreto 132/2010: Requisitos mínimos de centros', 
+    desc: 'Normativa estatal que fija superficies por aula, patio exterior y accesibilidad.', 
+    type: 'Normativa', 
+    url: 'https://www.boe.es/boe/dias/2010/03/12/pdfs/BOE-A-2010-4132.pdf',
+    tags: ['Requisitos Mínimos', 'Instalaciones', 'Normativa']
+  },
+  { 
+    unit: 'u4', 
+    title: 'Decreto 18/2008: Requisitos mínimos primer ciclo Madrid', 
+    desc: 'Normativa autonómica específica para escuelas infantiles en la Comunidad de Madrid.', 
+    type: 'Normativa', 
+    url: 'https://www.comunidad.madrid/sites/default/files/doc/educacion/decreto_18-2008.pdf',
+    tags: ['Comunidad de Madrid', '0-3 años', 'Normativa']
+  },
+  { 
+    unit: 'u4', 
+    title: 'Orden de 24 de noviembre de 1992: Comedores escolares', 
+    desc: 'Regulación higiénico-sanitaria y condiciones organizativas de los comedores.', 
+    type: 'Normativa', 
+    url: 'https://drive.google.com/file/d/1H0-p8ahBq3qSPqYLB5HYuwYaY_ooLzsL/view?usp=sharing',
+    tags: ['Comedores', 'Higiene', 'Normativa']
+  },
+  { 
+    unit: 'u4', 
+    title: 'Takaharu Tezuka: El mejor jardín de niños del mundo (Fuji)', 
+    desc: 'Conferencia TED sobre arquitectura educativa circular diseñada para el movimiento natural.', 
+    type: 'Videos', 
+    url: 'https://youtu.be/J5jwEyDaR-0?si=_zgF4Dm3oKaK-w1w',
+    tags: ['Arquitectura Escolar', 'TED', 'Innovación']
+  },
+  { 
+    unit: 'u4', 
+    title: 'Rosan Bosch: Escuelas que desatan la creatividad', 
+    desc: 'Conferencia sobre cómo el diseño del entorno físico transforma el aprendizaje de los niños.', 
+    type: 'Videos', 
+    url: 'https://youtu.be/y4z2FZHZnSc?si=jbrEQrilbkcBRHtd',
+    tags: ['Rosan Bosch', 'Diseño de Espacios', 'Creatividad']
+  },
+  { 
+    unit: 'u4', 
+    title: 'Listado de empresas de mobiliario y material escolar', 
+    desc: 'Guía de fabricantes, catálogos homologados y distribuidores especializados en infantil.', 
+    type: 'Documento', 
+    url: 'https://docs.google.com/document/d/1S9icENr1QgP9aoWmDI4ha1HToEDbLAJhOp0UAzscNSg/edit?usp=sharing',
+    tags: ['Proveedores', 'Catálogos', 'Mobiliario']
+  },
+  { 
+    unit: 'u4', 
+    title: 'Resumen Unidad 4', 
+    desc: 'Diapositivas de síntesis sobre materiales y equipamiento de centro.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/1vJGui2MV8QxnVNeOwKO919JI7_mHiz3EDJimu8bi-m8/edit?usp=sharing',
+    tags: ['Resumen', 'Equipamiento']
+  },
+
+  // ==========================================
+  // UNIDAD 5: Organización de Centros
+  // ==========================================
+  { 
+    unit: 'u5', 
+    title: 'Presentación U.D.5: Organización de Centros', 
+    desc: 'Órganos colegiados, documentos institucionales (PEC, PGA, RRI) y gestión.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/13Dst3QCzqj-hRaEAW-03lxPC5GPSskf6/view?usp=sharing',
+    tags: ['PEC', 'PGA', 'RRI', 'Órganos Colegiados']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Resumen Unidad 5', 
+    desc: 'Documento de repaso con los aspectos nucleares de la organización escolar.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1dw4WpFyA0yZVjxHZ9zdew4-pFeU4dAq6/view?usp=drive_link',
+    tags: ['Resumen', 'Organización Escolar']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Decreto 60/2020: Modificación del marco de convivencia (CAM)', 
+    desc: 'Actualización sobre normas de convivencia en centros educativos no universitarios.', 
+    type: 'Normativa', 
+    url: 'https://www.bocm.es/boletin/CM_Orden_BOCM/2020/07/31/BOCM-20200731-2.PDF',
+    tags: ['Convivencia', 'Normativa', 'Madrid']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Decreto 32/2019: Marco regulador de la convivencia escolar', 
+    desc: 'Normas de conducta, mediación y comisiones de convivencia en Madrid.', 
+    type: 'Normativa', 
+    url: 'https://www.bocm.es/boletin/CM_Orden_BOCM/2019/04/15/BOCM-20190415-1.PDF',
+    tags: ['Mediación', 'Convivencia', 'Normativa']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Guía para elaborar el Plan de Convivencia escolar', 
+    desc: 'Manual práctico de la Comunidad de Madrid con fases de diagnóstico y medidas.', 
+    type: 'Material Complementario', 
+    url: 'https://drive.google.com/file/d/173QZK1kvEArMwcuRxnpjeQ-a7ynUSxG3/view?usp=sharing',
+    tags: ['Plan de Convivencia', 'Guía Práctica']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Protocolos ante Maltrato Infantil: Comunidad de Madrid', 
+    desc: 'Procedimientos de detección precoz, notificación y coordinación sociosanitaria.', 
+    type: 'Material Complementario', 
+    url: 'https://www.comunidad.madrid/servicios/asuntos-sociales/maltrato-infantil',
+    tags: ['Protección', 'Maltrato Infantil', 'Protocolos']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Plan de Igualdad entre Mujeres y Hombres', 
+    desc: 'Directrices institucionales para centros educativos y administración pública.', 
+    type: 'Material Complementario', 
+    url: 'https://www.comunidad.madrid/transparencia/informacion-institucional/planes-programas/i-plan-igualdad-mujeres-y-hombres-administracion',
+    tags: ['Igualdad', 'Coeducación']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Protocolos contra el Acoso y Violencia de Género', 
+    desc: 'Guías de actuación ante situaciones de vulnerabilidad y conductas lesivas.', 
+    type: 'Material Complementario', 
+    url: 'https://www.comunidad.madrid/servicios/educacion/protocolos-acoso-violencia',
+    tags: ['Protocolos', 'Prevención Violencia']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Prevención de accidentes laborales en centros educativos', 
+    desc: 'Guía de seguridad laboral para educadores y personal de escuela infantil.', 
+    type: 'Material Complementario', 
+    url: 'https://drive.google.com/file/d/1Vr53uWS_QnYo41378PpNMLRWGEjs41oL/view?usp=sharing',
+    tags: ['Riesgos Laborales', 'Salud Laboral']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Guía de primeros auxilios para educadores y familias', 
+    desc: 'Manual ilustrado con pautas ante atragantamientos, caídas, fiebre y heridas.', 
+    type: 'Material Complementario', 
+    url: 'https://drive.google.com/file/d/1_BbebpHgPZA3JKTmz4zoMG0IEf0tvzPy/view?usp=sharing',
+    tags: ['Primeros Auxilios', 'Emergencias']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Normas higiénico-alimentarias en la escuela infantil', 
+    desc: 'Guía sobre alérgenos, manipulación de biberones y menús infantiles.', 
+    type: 'Material Complementario', 
+    url: 'https://drive.google.com/file/d/1F-cVvzNwZvItJIePoeBfeJ-R_ThYyBXh/view?usp=sharing',
+    tags: ['Higiene', 'Alimentación', 'Alérgenos']
+  },
+  { 
+    unit: 'u5', 
+    title: 'Proyecto Educativo de Centro (PEC) y Propuesta Pedagógica', 
+    desc: 'Documento base con la vinculación entre identidad de centro y proyecto didáctico.', 
+    type: 'Material Complementario', 
+    url: 'https://docs.google.com/document/d/13xXBqNETcbWNjCPKFb2q3oF0fG1ayfY2u5qNi6GQXy0/edit?usp=sharing',
+    tags: ['PEC', 'Propuesta Pedagógica']
+  },
+
+  // ==========================================
+  // UNIDAD 6: El desarrollo curricular
+  // ==========================================
+  { 
+    unit: 'u6', 
+    title: 'Presentación U.D.6: El desarrollo curricular', 
+    desc: 'Niveles de concreción curricular, saberes básicos, competencias y descriptores operativos.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/1s6BgSwiWLyXvAtjQ6skBiT7l_lSy3ahMxGvnV_erBmM/edit?usp=sharing',
+    tags: ['Currículo', 'Concreción Curricular', 'Saberes Básicos', 'LOMLOE']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Decreto 36/2022: Currículo de Educación Infantil de Madrid', 
+    desc: 'Ordenación autonómica y currículo de la etapa para la Comunidad de Madrid.', 
+    type: 'Normativa', 
+    url: 'https://drive.google.com/file/d/15JmDBwZGULwzl1SLeq8RL09m3afhkb7t/view?usp=drive_link',
+    tags: ['Decreto 36/2022', 'Madrid', 'Currículo', 'Normativa']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Real Decreto 95/2022: Enseñanzas mínimas de Educación Infantil', 
+    desc: 'Marco estatal LOMLOE que establece las competencias clave y las tres áreas de desarrollo.', 
+    type: 'Normativa', 
+    url: 'https://www.boe.es/eli/es/rd/2022/02/01/95/con',
+    tags: ['RD 95/2022', 'LOMLOE', 'Enseñanzas Mínimas', 'Áreas']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Decreto 18/2008: Requisitos mínimos primer ciclo Madrid', 
+    desc: 'Requisitos de instalaciones, ratios de personal y titulación para 0-3 años.', 
+    type: 'Normativa', 
+    url: 'https://www.comunidad.madrid/sites/default/files/doc/educacion/decreto_18-2008.pdf',
+    tags: ['0-3 años', 'Ratios', 'Normativa']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Ejemplo de Propuesta Pedagógica (WAECE)', 
+    desc: 'Modelo desarrollado por la Asociación Mundial de Educadores Infantiles.', 
+    type: 'Material Complementario', 
+    url: 'http://www.waece.org/docus/manuales_documentacion/propuestaPedagogica.pdf',
+    tags: ['WAECE', 'Propuesta Pedagógica']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Propuesta pedagógica del Colegio Mirasur', 
+    desc: 'Ejemplo real de programación didáctica y propuesta de centro.', 
+    type: 'Documento', 
+    url: 'https://docs.google.com/document/d/13xXBqNETcbWNjCPKFb2q3oF0fG1ayfY2u5qNi6GQXy0/edit?usp=sharing',
+    tags: ['Mirasur', 'Propuesta Pedagógica', 'Ejemplo Real']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Orientaciones de Inspección Educativa para EI y EP', 
+    desc: 'Documento técnico de supervisión curricular de la Inspección de Madrid.', 
+    type: 'Material Complementario', 
+    url: 'https://www.educa2.madrid.org/web/educamadrid/principal/files/1efa619a-f951-4111-aabc-467fab66acb3/Nueva%20WEB/P%C3%BAblico/Centros/Documentos%20de%20Centros/Orientaciones%20programaciones%20EI%20y%20EP_3954813.pdf',
+    tags: ['Inspección Educativa', 'Supervisión Curricular']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Subdirección General de Inspección Educativa', 
+    desc: 'Portal oficial de documentación organizativa y normativa escolar.', 
+    type: 'Recursos web', 
+    url: 'https://www.educa2.madrid.org/web/sginspeccioneducativa/documentos-organizativos-de-los-centros',
+    tags: ['Inspección', 'Portal Oficial']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Unidad de Programación Didáctica: Ejemplo Práctico', 
+    desc: 'Planificación de una situación de aprendizaje con criterios, saberes e instrumentos.', 
+    type: 'Material Complementario', 
+    url: 'https://drive.google.com/file/d/1IqdXyRjy5FcYhFooKrOpfq-zMNkoBN2f/view?usp=sharing',
+    tags: ['Situación de Aprendizaje', 'Programación', 'LOMLOE']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Guía paso a paso para elaborar la Propuesta Didáctica', 
+    desc: 'Pautas para estructurar objetivos, metodología y atención a la diversidad.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1PUgVM2e-o2O1vO-BubWrE1_OS5hNSwfJ/view?usp=sharing',
+    tags: ['Guía', 'Propuesta Didáctica', 'DUA']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Propuesta pedagógica (Modelo Comunidad Canaria)', 
+    desc: 'Ejemplo contextualizado en el currículo de las Islas Canarias.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1_bSPv6qQy-HPGlNmaXkrUp35o9AdK9YY/view?usp=drive_link',
+    tags: ['Canarias', 'Modelo Autonómico']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Propuesta pedagógica (Modelo Comunidad Andaluza)', 
+    desc: 'Ejemplo de programación didáctica en la Junta de Andalucía.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1WakE7fM3uSfTiwQaKpoIW9lkBtH7bXkE/view?usp=sharing',
+    tags: ['Andalucía', 'Modelo Autonómico']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Propuesta pedagógica (Modelo Comunidad de Madrid)', 
+    desc: 'Ejemplo de aplicación según el Decreto 36/2022 de Madrid.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1krgXNNHE-FHQMx_uBo_tDvB6GECUHp7W/view?usp=sharing',
+    tags: ['Madrid', 'Modelo Autonómico']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Resumen U.D. 6', 
+    desc: 'Diapositivas de síntesis para el repaso curricular.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/1sSErQGpFfipTfgrjxbi5-VZQfQrkNw7RCBycNV10uT4/edit?usp=sharing',
+    tags: ['Resumen', 'Currículo']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Resumen visita a la Escuela "Mi Bichito"', 
+    desc: 'Observación in situ de metodologías activas y espacios de juego.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/1BnIoze-Y2ac_WB7ELe2FyoOQDsXldRXaQTuJBqXGxF4/edit?usp=sharing',
+    tags: ['Escuela Infantil', 'Observación', 'Práctica']
+  },
+  { 
+    unit: 'u6', 
+    title: 'Resumen visita a la Escuela "Sueña"', 
+    desc: 'Estudio de caso sobre prácticas innovadoras en el primer ciclo.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/1UbWPeYupO04N9TfyX59aOqHKl1svhtfcb78u1Q05By8/edit?usp=sharing',
+    tags: ['Escuela Infantil', 'Estudio de Caso']
+  },
+
+  // ==========================================
+  // UNIDAD 7: La programación en el desarrollo curricular
+  // ==========================================
+  { 
+    unit: 'u7', 
+    title: 'Presentación U.D.7: La programación en el desarrollo curricular', 
+    desc: 'Diseño de situaciones de aprendizaje, temporalización y DUA.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/19frN6bvQybPPsDfvzZn1yVA_KalcsbBQGmNxr84-dMw/edit?usp=sharing',
+    tags: ['Programación', 'Situaciones de Aprendizaje', 'DUA']
+  },
+  { 
+    unit: 'u7', 
+    title: 'Resumen Unidad 7', 
+    desc: 'Esquema de programación docente para educación infantil.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1nmierZEIbyegN90OUXDrUVNnPiR2Vlv_/view?usp=sharing',
+    tags: ['Resumen', 'Programación']
+  },
+  { 
+    unit: 'u7', 
+    title: 'Orientaciones oficiales de la Dirección General para Programaciones', 
+    desc: 'Documento marco de la Consejería de Educación de Madrid para EI y EP.', 
+    type: 'Material Complementario', 
+    url: 'https://www.comunidad.madrid/sites/default/files/doc/educacion/orientaciones_programaciones_ei_y_ep_3954813.pdf',
+    tags: ['Orientaciones Oficiales', 'Madrid']
+  },
+  { 
+    unit: 'u7', 
+    title: 'Proyecto Educativo y Propuesta Pedagógica 2024-25', 
+    desc: 'Plantilla de trabajo actualizada para la planificación del curso académico.', 
+    type: 'Documento', 
+    url: 'https://docs.google.com/document/d/13xXBqNETcbWNjCPKFb2q3oF0fG1ayfY2u5qNi6GQXy0/edit?usp=sharing',
+    tags: ['Plantilla', 'Curso 2024-25']
+  },
+  { 
+    unit: 'u7', 
+    title: 'Diseño Universal para el Aprendizaje (DUA): Video-lección', 
+    desc: 'Fundamentos de inclusión: múltiples formas de representación, expresión e implicación.', 
+    type: 'Videos', 
+    url: 'https://drive.google.com/file/d/1-9m2Xw_eRScJq7C5NgIZ0ux7pldvjfay/view?usp=sharing',
+    tags: ['DUA', 'Inclusión', 'Videolección']
+  },
+  { 
+    unit: 'u7', 
+    title: 'Principios y Pautas del DUA (EducaDUA)', 
+    desc: 'Portal oficial de la red EducaDUA con rúbricas y pautas de aplicación directa.', 
+    type: 'Recursos web', 
+    url: 'https://www.educadua.es/html/dua/pautasDUA/dua_principios.html',
+    tags: ['DUA', 'EducaDUA', 'Inclusión']
+  },
+  { 
+    unit: 'u7', 
+    title: 'Guía para el Diseño Universal para el Aprendizaje', 
+    desc: 'Documento explicativo con adaptaciones de accesibilidad didáctica.', 
+    type: 'Apuntes', 
+    url: 'https://drive.google.com/file/d/1a9vQsNStyh5ApOURFs3Txa9CaMe0yi5c/view?usp=sharing',
+    tags: ['DUA', 'Accesibilidad', 'Guía']
+  },
+  { 
+    unit: 'u7', 
+    title: 'Recursos para familias (0-3 años): Mirasur', 
+    desc: 'Sitio web escolar con pautas, rutinas y juegos digitales.', 
+    type: 'Recursos web', 
+    url: 'https://sites.google.com/colegiomirasur.com/mirasurescuela0-3virtual/actividades',
+    tags: ['Familias', '0-3 años', 'Rutinas']
+  },
+  { 
+    unit: 'u7', 
+    title: 'Juegos interactivos infantiles con soporte digital', 
+    desc: 'Plataforma con actividades lúdicas creadas por docentes de educación infantil.', 
+    type: 'Recursos web', 
+    url: 'https://sites.google.com/colegiomirasur.com/juegos-interactivos/2-a%C3%B1os',
+    tags: ['Juego Digital', 'Interactividad', '2 años']
+  },
+
+  // ==========================================
+  // UNIDAD 8: La evaluación en educación infantil
+  // ==========================================
+  { 
+    unit: 'u8', 
+    title: 'Presentación U.D.8: La evaluación en educación infantil', 
+    desc: 'Evaluación formativa, continua, global y cualitativa. Diario de clase y escalas.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/12jfVBhj7uXyTzrPb9j1Fxd-dXVNd4UX4ezORqZX-EUE/edit?usp=sharing',
+    tags: ['Evaluación Formativa', 'Instrumentos', 'Diario de Aula']
+  },
+  { 
+    unit: 'u8', 
+    title: 'Resumen Unidad 8', 
+    desc: 'Síntesis de instrumentos y técnicas de evaluación sistemática.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1obp6p8EHm8yBoMaR62csF2RCCvUZHnFa/view?usp=sharing',
+    tags: ['Resumen', 'Evaluación']
+  },
+  { 
+    unit: 'u8', 
+    title: 'Orden 680/2009: Evaluación en Educación Infantil en Madrid', 
+    desc: 'Norma vigente sobre documentos oficiales de evaluación y comunicación con familias.', 
+    type: 'Normativa', 
+    url: 'https://drive.google.com/file/d/1ZxC2CL2K9zu4wNx91YW9Dj3aQfClKxV2/view?usp=sharing',
+    tags: ['Orden 680/2009', 'Normativa', 'Madrid', 'Evaluación Oficial']
+  },
+  { 
+    unit: 'u8', 
+    title: 'Correlación entre objeto e instrumentos de evaluación', 
+    desc: 'Tabla de correspondencias entre conductas evaluadas y técnicas de observación.', 
+    type: 'Documento', 
+    url: 'https://docs.google.com/document/d/1_7X5esOAuaUQ3VAftotfx7Fhi43BJyQKx6wr2Mm3PqQ/edit?usp=sharing',
+    tags: ['Instrumentos', 'Observación Sistemática']
+  },
+  { 
+    unit: 'u8', 
+    title: 'Indicadores de logro para criterios de evaluación (Asturias)', 
+    desc: 'Banco de indicadores formulados por áreas y edades de desarrollo.', 
+    type: 'Material Complementario', 
+    url: 'https://drive.google.com/file/d/1ab9UGUG_PwQL4tUY1ck9XxHOxNbSwWLw/view?usp=sharing',
+    tags: ['Indicadores de Logro', 'Criterios de Evaluación']
+  },
+
+  // ==========================================
+  // UNIDAD 9: Organización de la intervención socioeducativa
+  // ==========================================
+  { 
+    unit: 'u9', 
+    title: 'Presentación U.D.9: Organización de la intervención socioeducativa', 
+    desc: 'Servicios de ocio y tiempo libre, ludotecas, granjas escuela y hospitales infantiles.', 
+    type: 'Presentaciones', 
+    url: 'https://docs.google.com/presentation/d/1IQKUJ01Xp9ae97dcqI-XHtDsI7KGkw6tTwCQA-d8-fM/edit?usp=sharing',
+    tags: ['Socioeducativo', 'Ludotecas', 'Tiempo Libre', 'Animación']
+  },
+  { 
+    unit: 'u9', 
+    title: 'Resumen Unidad 9', 
+    desc: 'Diapositivas de síntesis sobre animación y proyectos socioeducativos comunitarios.', 
+    type: 'Presentaciones', 
+    url: 'https://drive.google.com/file/d/1YLxMgOw_GSSOFZ3muF724TFz3MNZFuXk/view?usp=sharing',
+    tags: ['Resumen', 'Intervención Comunitaria']
+  },
+  { 
+    unit: 'u9', 
+    title: 'Decreto 155/2018: Normativa de Ludotecas en Andalucía', 
+    desc: 'Catálogo de Espectáculos Públicos y Actividades Recreativas de Andalucía.', 
+    type: 'Normativa', 
+    url: 'https://www.granada.org/inet/wordenanz.nsf/f6760ff49a802e08c1256e280063512f/dbc8d24b3f07cd7fc12582de0026290b!OpenDocument',
+    tags: ['Ludotecas', 'Andalucía', 'Normativa']
+  },
+  { 
+    unit: 'u9', 
+    title: 'Decreto 143/2015: Reglamento de Ludotecas y Centros de Ocio', 
+    desc: 'Requisitos y condiciones de seguridad en instalaciones infantiles de la Comunidad Valenciana.', 
+    type: 'Normativa', 
+    url: 'https://dogv.gva.es/portal/ficha_disposicion_pc.jsp?sig=007372/2015&L=1',
+    tags: ['Ludotecas', 'Comunidad Valenciana', 'Normativa']
+  },
+  { 
+    unit: 'u9', 
+    title: 'Cuestionario de consolidación: Unidad 9', 
+    desc: 'Batería de preguntas de repaso para afianzar conceptos de la unidad.', 
+    type: 'Material Complementario', 
+    url: 'https://drive.google.com/file/d/1tWKLEcr2a10SMQu7UK9YNL7cGQBZQOqf/view?usp=sharing',
+    tags: ['Repaso', 'Cuestionario']
+  }
+];
+
+// Configuración de colores e iconos por tipo de recurso
+const TYPE_STYLES = {
+  'Presentaciones': { bg: 'bg-rose-50', text: 'text-rose-700', border: 'border-rose-200', icon: 'fa-person-chalkboard', dot: 'bg-rose-500' },
+  'Normativa': { bg: 'bg-amber-50', text: 'text-amber-800', border: 'border-amber-200', icon: 'fa-scale-balanced', dot: 'bg-amber-500' },
+  'Apuntes': { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200', icon: 'fa-book', dot: 'bg-indigo-500' },
+  'Documento': { bg: 'bg-sky-50', text: 'text-sky-700', border: 'border-sky-200', icon: 'fa-file-lines', dot: 'bg-sky-500' },
+  'Videos': { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200', icon: 'fa-video', dot: 'bg-red-500' },
+  'Material Complementario': { bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200', icon: 'fa-puzzle-piece', dot: 'bg-purple-500' },
+  'Recursos web': { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200', icon: 'fa-globe', dot: 'bg-emerald-500' }
+};
+
+function getTypeStyle(type) {
+  return TYPE_STYLES[type] || { bg: 'bg-slate-100', text: 'text-slate-700', border: 'border-slate-200', icon: 'fa-link', dot: 'bg-slate-400' };
+}
+
+function getResourceOrigin(url) {
+  const urlStr = url || '';
+  if (urlStr.includes('drive.google.com') || urlStr.includes('docs.google.com/document') || urlStr.includes('docs.google.com/presentation')) {
+    return { icon: 'fa-google-drive', label: 'Google Drive' };
+  } else if (urlStr.includes('youtube.com') || urlStr.includes('youtu.be')) {
+    return { icon: 'fa-youtube', label: 'Ver Vídeo' };
+  } else if (urlStr.includes('boe.es') || urlStr.includes('bocm.es') || urlStr.includes('xunta.gal') || urlStr.includes('dogv.gva.es')) {
+    return { icon: 'fa-landmark', label: 'BOE / Oficial' };
+  } else if (urlStr.includes('forms.gle')) {
+    return { icon: 'fa-square-poll-vertical', label: 'Formulario' };
+  }
+  return { icon: 'fa-arrow-up-right-from-square', label: 'Abrir Recurso' };
+}
+
+
+/**
+ * Módulo de Sincronización y Exportación de Google Sheets
+ * Didáctica de la Educación Infantil SPA (Serverless)
+ */
+
+function extractSheetId(input) {
+  if (!input) return '';
+  const match = input.match(/\/d\/([a-zA-Z0-9-_]+)/);
+  if (match && match[1]) return match[1];
+  if (/^[a-zA-Z0-9-_]{20,}$/.test(input.trim())) return input.trim();
+  return input.trim();
+}
+
+function connectSheetFromModal() {
+  const input = document.getElementById('sheet-url-input');
+  const raw = input ? input.value.trim() : '';
+  const id = extractSheetId(raw);
+
+  if (!id) {
+    showToast('Por favor, introduce una URL o ID válida de Google Sheets');
+    return;
+  }
+
+  syncWithGoogleSheet(id);
+}
+
+function disconnectSheet() {
+  localStorage.removeItem('didactica_sheet_id');
+  connectedSheetId = '';
+  resourcesData = [...DEFAULT_RESOURCES];
+
+  const badge = document.getElementById('badge-sheet-connected');
+  if (badge) badge.classList.add('hidden');
+
+  const syncLabel = document.getElementById('sync-label');
+  if (syncLabel) syncLabel.innerText = "Hoja en Vivo";
+
+  closeSyncModal();
+  renderNavigation();
+  renderFilters();
+  renderHeader();
+  renderCards();
+  showToast('Hoja desvinculada. Se restauraron los datos predeterminados.');
+}
+
+async function syncWithGoogleSheet(sheetId, isAuto = false) {
+  const syncIcon = document.getElementById('sync-icon');
+  const syncLabel = document.getElementById('sync-label');
+  if (syncIcon) syncIcon.classList.add('fa-spin');
+  if (syncLabel) syncLabel.innerText = "Sincronizando...";
+
+  const gvizUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+  try {
+    const response = await fetch(gvizUrl);
+    if (!response.ok) throw new Error('No se pudo acceder a la hoja');
+
+    const text = await response.text();
+    const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+    const data = JSON.parse(jsonString);
+
+    if (!data.table || !data.table.rows) {
+      throw new Error('Estructura de hoja no compatible');
+    }
+
+    const parsed = [];
+    let currentUnitId = 'u0';
+
+    data.table.rows.forEach(row => {
+      if (!row.c) return;
+      const col0 = row.c[0]?.v?.toString()?.trim() || '';
+      const col1 = row.c[1]?.v?.toString()?.trim() || '';
+      const col2 = row.c[2]?.v?.toString()?.trim() || '';
+      const col3 = row.c[3]?.v?.toString()?.trim() || '';
+
+      // Detectar cabecera de unidad
+      const lower = col0.toLowerCase();
+      if (lower.startsWith('unidad 0')) currentUnitId = 'u0';
+      else if (lower.startsWith('unidad 1')) currentUnitId = 'u1';
+      else if (lower.startsWith('unidad 2')) currentUnitId = 'u2';
+      else if (lower.startsWith('unidad 3')) currentUnitId = 'u3';
+      else if (lower.startsWith('unidad 4')) currentUnitId = 'u4';
+      else if (lower.startsWith('unidad 5')) currentUnitId = 'u5';
+      else if (lower.startsWith('unidad 6')) currentUnitId = 'u6';
+      else if (lower.startsWith('unidad 7')) currentUnitId = 'u7';
+      else if (lower.startsWith('unidad 8')) currentUnitId = 'u8';
+      else if (lower.startsWith('unidad 9')) currentUnitId = 'u9';
+
+      // Si tiene enlace o título no unitario
+      if (col3 || (col0 && !col0.toLowerCase().startsWith('unidad '))) {
+        let resourceType = col2 || 'Apuntes';
+        if (resourceType.toLowerCase().includes('video')) resourceType = 'Videos';
+        else if (resourceType.toLowerCase().includes('presentac')) resourceType = 'Presentaciones';
+        else if (resourceType.toLowerCase().includes('normativ')) resourceType = 'Normativa';
+        else if (resourceType.toLowerCase().includes('web') || resourceType.toLowerCase().includes('site')) resourceType = 'Recursos web';
+        else if (resourceType.toLowerCase().includes('complemen')) resourceType = 'Material Complementario';
+
+        // Intentar preservar o deducir tags si coincide con default
+        const defaultMatch = DEFAULT_RESOURCES.find(r => r.url === col3 || r.title.toLowerCase() === col0.toLowerCase());
+        const tags = defaultMatch ? defaultMatch.tags : ['Google Sheets'];
+
+        parsed.push({
+          unit: currentUnitId,
+          title: col0 || 'Documento sin título',
+          desc: col1 || '',
+          type: resourceType,
+          url: col3 || '#',
+          tags: tags
+        });
+      }
+    });
+
+    if (parsed.length > 0) {
+      resourcesData = parsed;
+      connectedSheetId = sheetId;
+      localStorage.setItem('didactica_sheet_id', sheetId);
+
+      const badge = document.getElementById('badge-sheet-connected');
+      if (badge) badge.classList.remove('hidden');
+
+      if (syncLabel) syncLabel.innerText = "Hoja Vinculada";
+      closeSyncModal();
+      renderNavigation();
+      renderFilters();
+      renderHeader();
+      renderCards();
+      showToast(`¡Conectado! ${parsed.length} recursos sincronizados en vivo.`);
+    } else {
+      throw new Error('No se encontraron filas con recursos válidos');
+    }
+
+  } catch (err) {
+    console.error('Error al sincronizar Google Sheets:', err);
+    if (!isAuto) {
+      showToast('Error al conectar. Verifica que la hoja esté compartida como pública (Lector).');
+    }
+    if (syncLabel) syncLabel.innerText = "Hoja en Vivo";
+  } finally {
+    if (syncIcon) syncIcon.classList.remove('fa-spin');
+  }
+}
+
+// Copiar tabla TSV para pegar directamente en Google Sheets
+function copyTableToClipboard() {
+  let tsv = "Título\tDescripción\tTipo\tEnlace\n";
+  DEFAULT_UNITS.forEach(u => {
+    tsv += `${u.title}: ${u.subtitle}\t\tPresentaciones\t\n`;
+    const items = resourcesData.filter(r => r.unit === u.id);
+    items.forEach(item => {
+      const cleanDesc = (item.desc || '').replace(/[\t\n]/g, ' ');
+      tsv += `${item.title}\t${cleanDesc}\t${item.type}\t${item.url}\n`;
+    });
+  });
+
+  copyTextHelper(tsv);
+  showToast('¡Tabla copiada! Abre sheets.new y pulsa Ctrl+V.');
+}
+
+// Descargar archivo CSV con BOM UTF-8 compatible con Excel y Google Sheets
+function downloadCSVFile() {
+  let csv = "\uFEFFTítulo,Descripción,Tipo,Enlace\n";
+  DEFAULT_UNITS.forEach(u => {
+    csv += `"${u.title}: ${u.subtitle}","","Presentaciones",""\n`;
+    const items = resourcesData.filter(r => r.unit === u.id);
+    items.forEach(item => {
+      const t = (item.title || '').replace(/"/g, '""');
+      const d = (item.desc || '').replace(/"/g, '""');
+      const tp = (item.type || '').replace(/"/g, '""');
+      const uUrl = (item.url || '').replace(/"/g, '""');
+      csv += `"${t}","${d}","${tp}","${uUrl}"\n`;
+    });
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.setAttribute("href", url);
+  link.setAttribute("download", "Didactica_Educacion_Infantil_Materiales.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  showToast('Archivo CSV descargado correctamente');
+}
+
+// Controladores de apertura y cierre de modales
+function openSheetsExportModal() {
+  document.getElementById('modal-sheets-export')?.classList.remove('hidden');
+}
+function closeSheetsExportModal() {
+  document.getElementById('modal-sheets-export')?.classList.add('hidden');
+}
+
+function openSyncModal() {
+  const input = document.getElementById('sheet-url-input');
+  const disconnectBtn = document.getElementById('btn-disconnect-sheet');
+  if (input) input.value = connectedSheetId ? `https://docs.google.com/spreadsheets/d/${connectedSheetId}/edit` : '';
+  if (disconnectBtn) {
+    if (connectedSheetId) disconnectBtn.classList.remove('hidden');
+    else disconnectBtn.classList.add('hidden');
+  }
+  document.getElementById('modal-sync')?.classList.remove('hidden');
+}
+function closeSyncModal() {
+  document.getElementById('modal-sync')?.classList.add('hidden');
+}
+
+function openTutorialModal() {
+  document.getElementById('modal-tutorial')?.classList.remove('hidden');
+}
+function closeTutorialModal() {
+  document.getElementById('modal-tutorial')?.classList.add('hidden');
+}
+
+function openExportModal() {
+  document.getElementById('modal-export')?.classList.remove('hidden');
+}
+function closeExportModal() {
+  document.getElementById('modal-export')?.classList.add('hidden');
+}
+
+
+/**
+ * Lógica Principal de la Aplicación SPA
+ * Didáctica de la Educación Infantil (Ciclo Formativo TSEI)
+ */
+
+// Estado global de la aplicación
+let resourcesData = [...DEFAULT_RESOURCES];
+let currentUnit = 'all';
+let currentType = 'all';
+let searchQuery = '';
+let onlyFavorites = false;
+let isProjectorMode = false;
+let connectedSheetId = localStorage.getItem('didactica_sheet_id') || '';
+
+// Gestión de Favoritos en LocalStorage
+let favorites = [];
+try {
+  favorites = JSON.parse(localStorage.getItem('didactica_favorites') || '[]');
+} catch (e) {
+  favorites = [];
+}
+
+// Gestión del Modo Docente
+const DEFAULT_TEACHER_KEY = 'infantil2026';
+let isTeacherMode = localStorage.getItem('didactica_is_teacher') === 'true';
+
+/* ==========================================================================
+   Inicialización
+   ========================================================================== */
+window.addEventListener('DOMContentLoaded', () => {
+  checkTeacherUrlParam();
+  updateTeacherUI();
+  renderNavigation();
+  renderFilters();
+  renderHeader();
+  renderCards();
+
+  // Si había una hoja conectada previamente, sincronizar en segundo plano
+  if (connectedSheetId) {
+    syncWithGoogleSheet(connectedSheetId, true);
+  }
+
+  // Cerrar modales haciendo clic en el fondo oscuro exterior
+  ['modal-sheets-export', 'modal-sync', 'modal-tutorial', 'modal-teacher-auth', 'modal-export'].forEach(id => {
+    const modal = document.getElementById(id);
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeAllModals();
+      });
+    }
+  });
+});
+
+/* ==========================================================================
+   Atajos de Teclado
+   ========================================================================== */
+document.addEventListener('keydown', (e) => {
+  // Atajo secreto: Ctrl + Shift + D para abrir el panel de profesor
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+    e.preventDefault();
+    handleTeacherToggle();
+  } else if (e.key === 'Escape') {
+    closeAllModals();
+  }
+});
+
+function closeAllModals() {
+  closeSheetsExportModal();
+  closeSyncModal();
+  closeTutorialModal();
+  closeTeacherModal();
+  closeExportModal();
+}
+
+/* ==========================================================================
+   Modo Proyector / Pizarra Digital Interactiva (PDI)
+   ========================================================================== */
+function toggleProjectorMode() {
+  isProjectorMode = !isProjectorMode;
+  document.body.classList.toggle('projector-mode', isProjectorMode);
+  
+  const btn = document.getElementById('btn-projector-toggle');
+  if (btn) {
+    if (isProjectorMode) {
+      btn.className = "px-3 py-2 text-xs sm:text-sm font-semibold text-amber-900 bg-amber-100 border border-amber-300 rounded-xl transition flex items-center gap-1.5 shadow-xs";
+      btn.innerHTML = '<i class="fa-solid fa-chalkboard text-amber-700"></i><span class="hidden sm:inline">Salir PDI</span>';
+      showToast('Modo PDI activado: tipografía ampliada para el aula.');
+    } else {
+      btn.className = "px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl transition flex items-center gap-1.5 shadow-xs";
+      btn.innerHTML = '<i class="fa-solid fa-chalkboard text-slate-600"></i><span class="hidden sm:inline">Modo PDI</span>';
+      showToast('Modo PDI desactivado.');
+    }
+  }
+}
+
+/* ==========================================================================
+   Gestión de Favoritos (LocalStorage)
+   ========================================================================== */
+function isFavorite(url) {
+  return favorites.includes(url);
+}
+
+function toggleFavorite(url) {
+  if (isFavorite(url)) {
+    favorites = favorites.filter(favUrl => favUrl !== url);
+    showToast('Recurso eliminado de tus favoritos.');
+  } else {
+    favorites.push(url);
+    showToast('⭐ Recurso guardado en tus favoritos.');
+  }
+  
+  try {
+    localStorage.setItem('didactica_favorites', JSON.stringify(favorites));
+  } catch (e) {
+    console.warn('No se pudo guardar favoritos en localStorage:', e);
+  }
+
+  renderFilters();
+  renderHeader();
+  renderCards();
+}
+
+function toggleFavoritesFilter() {
+  onlyFavorites = !onlyFavorites;
+  if (onlyFavorites) {
+    currentType = 'all';
+  }
+  renderFilters();
+  renderHeader();
+  renderCards();
+}
+
+/* ==========================================================================
+   Gestión del Modo Docente
+   ========================================================================== */
+function checkTeacherUrlParam() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('docente') === 'true' || window.location.hash === '#docente') {
+    setTeacherMode(true);
+  }
+}
+
+function setTeacherMode(active) {
+  isTeacherMode = active;
+  localStorage.setItem('didactica_is_teacher', active ? 'true' : 'false');
+  updateTeacherUI();
+}
+
+function updateTeacherUI() {
+  const toolsContainer = document.getElementById('teacher-tools');
+  const toggleBtn = document.getElementById('btn-teacher-toggle');
+  const lockIcon = document.getElementById('teacher-lock-icon');
+  const btnText = document.getElementById('teacher-btn-text');
+
+  if (isTeacherMode) {
+    if (toolsContainer) toolsContainer.classList.remove('hidden');
+    if (toggleBtn) {
+      toggleBtn.className = "px-3 py-2 text-xs sm:text-sm font-semibold text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-xl border border-rose-300 transition flex items-center gap-1.5 shadow-xs";
+    }
+    if (lockIcon) lockIcon.className = "fa-solid fa-lock-open text-rose-600";
+    if (btnText) btnText.innerText = "Salir Docente";
+  } else {
+    if (toolsContainer) toolsContainer.classList.add('hidden');
+    if (toggleBtn) {
+      toggleBtn.className = "px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition flex items-center gap-1.5 shadow-xs";
+    }
+    if (lockIcon) lockIcon.className = "fa-solid fa-lock text-slate-500";
+    if (btnText) btnText.innerText = "Acceso Docente";
+  }
+}
+
+function handleTeacherToggle() {
+  if (isTeacherMode) {
+    setTeacherMode(false);
+    showToast('Modo Docente cerrado. Vista de estudiante activa.');
+  } else {
+    const modal = document.getElementById('modal-teacher-auth');
+    const input = document.getElementById('teacher-password-input');
+    const error = document.getElementById('teacher-auth-error');
+    if (error) error.classList.add('hidden');
+    if (input) input.value = '';
+    modal?.classList.remove('hidden');
+    setTimeout(() => input?.focus(), 120);
+  }
+}
+
+function closeTeacherModal() {
+  document.getElementById('modal-teacher-auth')?.classList.add('hidden');
+}
+
+function verifyTeacherPassword() {
+  const input = document.getElementById('teacher-password-input');
+  const error = document.getElementById('teacher-auth-error');
+  const val = input ? input.value.trim() : '';
+  const storedKey = localStorage.getItem('didactica_custom_key') || DEFAULT_TEACHER_KEY;
+
+  if (val === storedKey || val === 'admin1234') {
+    closeTeacherModal();
+    setTeacherMode(true);
+    showToast('¡Modo Docente activado! Herramientas habilitadas.');
+  } else {
+    if (error) {
+      error.classList.remove('hidden');
+      input.classList.add('border-rose-500', 'bg-rose-50');
+      setTimeout(() => {
+        input.classList.remove('border-rose-500', 'bg-rose-50');
+      }, 600);
+    }
+    input?.focus();
+  }
+}
+
+/* ==========================================================================
+   Renderizado de la Interfaz
+   ========================================================================== */
+function renderNavigation() {
+  const container = document.getElementById('unit-nav-container');
+  if (!container) return;
+
+  container.innerHTML = DEFAULT_UNITS.map(u => {
+    const count = resourcesData.filter(r => r.unit === u.id).length;
+    const isActive = currentUnit === u.id;
+    return `
+      <button
+        onclick="filterByUnit('${u.id}')"
+        class="w-full text-left p-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-between group ${
+          isActive 
+            ? 'bg-rose-50 text-rose-800 border border-rose-200 shadow-xs' 
+            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
+        }"
+      >
+        <div class="flex items-center gap-2.5 truncate">
+          <span class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
+            isActive ? 'bg-rose-500 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200'
+          }">
+            <i class="fa-solid ${u.icon} text-xs"></i>
+          </span>
+          <div class="truncate">
+            <span class="font-bold block text-slate-800 truncate">${escapeHtml(u.title)}</span>
+            <span class="text-[10px] text-slate-400 font-normal truncate block">${escapeHtml(u.subtitle)}</span>
+          </div>
+        </div>
+        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${
+          isActive ? 'bg-rose-200/70 text-rose-900' : 'bg-slate-100 text-slate-500'
+        }">${count}</span>
+      </button>
+    `;
+  }).join('');
+}
+
+function renderFilters() {
+  const container = document.getElementById('filter-types-container');
+  if (!container) return;
+
+  const types = ['all', 'Presentaciones', 'Normativa', 'Apuntes', 'Documento', 'Videos', 'Material Complementario', 'Recursos web'];
+
+  const typePills = types.map(type => {
+    const isAll = type === 'all';
+    const label = isAll ? 'Todos los tipos' : type;
+    const isSelected = !onlyFavorites && currentType === type;
+    const count = isAll ? resourcesData.length : resourcesData.filter(r => r.type === type).length;
+    
+    return `
+      <button
+        onclick="filterByType('${type}')"
+        class="badge-pill px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 flex items-center gap-1.5 border ${
+          isSelected 
+            ? 'bg-slate-900 text-white border-slate-900 shadow-xs' 
+            : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900'
+        }"
+      >
+        <span>${label}</span>
+        <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+          isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
+        }">${count}</span>
+      </button>
+    `;
+  }).join('');
+
+  // Píldora interactiva de Favoritos
+  const favCount = favorites.length;
+  const favSelected = onlyFavorites;
+  const favPill = `
+    <button
+      onclick="toggleFavoritesFilter()"
+      class="badge-pill px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0 flex items-center gap-1.5 border ${
+        favSelected 
+          ? 'bg-amber-500 text-white border-amber-600 shadow-xs ring-2 ring-amber-200' 
+          : 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100'
+      }"
+      title="Ver únicamente los recursos que has marcado con estrella"
+    >
+      <i class="fa-solid fa-star ${favSelected ? 'text-white' : 'text-amber-500'} text-xs"></i>
+      <span>Mis Favoritos</span>
+      <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+        favSelected ? 'bg-white/25 text-white' : 'bg-amber-200/80 text-amber-900'
+      }">${favCount}</span>
+    </button>
+  `;
+
+  container.innerHTML = favPill + typePills;
+}
+
+function renderHeader() {
+  const tagPill = document.getElementById('unit-tag-pill');
+  const title = document.getElementById('unit-header-title');
+  const desc = document.getElementById('unit-header-desc');
+  const countPill = document.getElementById('unit-count-pill');
+  const filteredBadge = document.getElementById('filtered-count-badge');
+  const totalStat = document.getElementById('stat-total-resources');
+
+  if (totalStat) totalStat.innerText = resourcesData.length;
+
+  if (onlyFavorites) {
+    if (tagPill) tagPill.innerText = 'Colección Personal';
+    if (title) title.innerText = '⭐ Tus Recursos Favoritos';
+    if (desc) desc.innerText = 'Materiales guardados para estudio rápido, preparación de clases o situaciones de aprendizaje.';
+  } else if (currentUnit === 'all') {
+    if (tagPill) tagPill.innerText = 'Todas las Unidades';
+    if (title) title.innerText = 'Catálogo Completo de Didáctica';
+    if (desc) desc.innerText = 'Explora los recursos de todas las unidades didácticas del ciclo formativo (U.0 a U.9).';
+  } else {
+    const u = DEFAULT_UNITS.find(item => item.id === currentUnit);
+    if (u) {
+      if (tagPill) tagPill.innerText = u.title;
+      if (title) title.innerText = u.subtitle;
+      if (desc) desc.innerText = `Materiales formativos correspondientes a la ${u.title}.`;
+    }
+  }
+
+  const visibleCount = getFilteredResources().length;
+  if (countPill) countPill.innerText = `${visibleCount} recurso${visibleCount === 1 ? '' : 's'}`;
+  if (filteredBadge) {
+    filteredBadge.innerText = `Mostrando ${visibleCount} de ${resourcesData.length} recursos`;
+  }
+}
+
+function getFilteredResources() {
+  return resourcesData.filter(item => {
+    const matchesUnit = currentUnit === 'all' || item.unit === currentUnit;
+    const matchesType = currentType === 'all' || item.type === currentType;
+    const matchesFav = !onlyFavorites || isFavorite(item.url);
+
+    // Búsqueda enriquecida: incluye título, descripción, tipo y etiquetas pedagógicas
+    let matchesSearch = true;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      const inTitle = item.title.toLowerCase().includes(q);
+      const inDesc = (item.desc || '').toLowerCase().includes(q);
+      const inType = item.type.toLowerCase().includes(q);
+      const inTags = (item.tags || []).some(t => t.toLowerCase().includes(q));
+      matchesSearch = inTitle || inDesc || inType || inTags;
+    }
+
+    return matchesUnit && matchesType && matchesFav && matchesSearch;
+  });
+}
+
+function renderCards() {
+  const grid = document.getElementById('resources-grid');
+  const empty = document.getElementById('empty-state');
+  if (!grid) return;
+
+  const filtered = getFilteredResources();
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    if (empty) empty.classList.remove('hidden');
+    return;
+  }
+
+  if (empty) empty.classList.add('hidden');
+
+  grid.innerHTML = filtered.map(item => {
+    const style = getTypeStyle(item.type);
+    const unitObj = DEFAULT_UNITS.find(u => u.id === item.unit) || { title: 'General' };
+    const origin = getResourceOrigin(item.url);
+    const fav = isFavorite(item.url);
+
+    const safeTitle = escapeHtml(item.title);
+    const safeDesc = escapeHtml(item.desc || 'Recurso oficial para el estudio y preparación de las sesiones formativas.');
+    const safeType = escapeHtml(item.type);
+    const safeUrl = encodeURI(item.url || '#');
+
+    // Renderizado de etiquetas didácticas
+    const tagsHtml = (item.tags || []).map(tag => `
+      <span class="inline-block text-[10px] font-medium text-slate-500 bg-slate-100 hover:bg-slate-200 px-2 py-0.5 rounded-md cursor-pointer transition" onclick="handleSearch('${escapeHtml(tag)}')">
+        #${escapeHtml(tag)}
+      </span>
+    `).join('');
+
+    return `
+      <div class="resource-card bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:border-rose-300 hover:shadow-md flex flex-col justify-between">
+        <div>
+          <!-- Cabecera de la tarjeta: Unidad, Tipo y Estrella Favoritos -->
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider bg-slate-100 px-2 py-0.5 rounded-md">
+              ${escapeHtml(unitObj.title)}
+            </span>
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${style.bg} ${style.text} border ${style.border}">
+                <span class="w-1.5 h-1.5 rounded-full ${style.dot}"></span>
+                <span>${safeType}</span>
+              </span>
+              <button 
+                onclick="toggleFavorite('${safeUrl.replace(/'/g, "\\'")}')" 
+                class="btn-fav text-slate-300 hover:text-amber-500 ${fav ? 'text-amber-500 active' : ''} p-1"
+                title="${fav ? 'Quitar de favoritos' : 'Guardar en favoritos'}"
+                aria-label="Favorito"
+              >
+                <i class="${fav ? 'fa-solid' : 'fa-regular'} fa-star text-sm"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Título -->
+          <h3 class="font-display font-bold text-slate-900 text-base leading-snug hover:text-rose-600 transition">
+            <a href="${safeUrl}" target="_blank" rel="noopener noreferrer">
+              ${safeTitle}
+            </a>
+          </h3>
+
+          <!-- Descripción -->
+          <p class="text-xs text-slate-500 mt-2 leading-relaxed line-clamp-3">
+            ${safeDesc}
+          </p>
+
+          <!-- Etiquetas Pedagógicas -->
+          ${tagsHtml ? `<div class="mt-3 flex flex-wrap gap-1">${tagsHtml}</div>` : ''}
+        </div>
+
+        <!-- Pie de la tarjeta -->
+        <div class="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
+          <button 
+            onclick="copyResourceUrl('${safeUrl.replace(/'/g, "\\'")}')" 
+            class="text-xs font-semibold text-slate-500 hover:text-slate-800 p-1.5 rounded-lg hover:bg-slate-100 transition flex items-center gap-1"
+            title="Copiar enlace"
+          >
+            <i class="fa-regular fa-clone text-xs"></i>
+            <span class="hidden sm:inline text-[11px]">Copiar</span>
+          </button>
+
+          <a 
+            href="${safeUrl}" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-slate-900 bg-slate-100 hover:bg-rose-500 hover:text-white rounded-xl transition duration-150 shadow-xs group"
+          >
+            <i class="fa-solid ${origin.icon} text-rose-500 group-hover:text-white text-xs"></i>
+            <span>${origin.label}</span>
+          </a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ==========================================================================
+   Filtros y Búsqueda
+   ========================================================================== */
+function filterByUnit(unitId) {
+  currentUnit = unitId;
+  onlyFavorites = false;
+  renderNavigation();
+  renderHeader();
+  renderCards();
+}
+
+function filterByType(type) {
+  currentType = type;
+  onlyFavorites = false;
+  renderFilters();
+  renderHeader();
+  renderCards();
+}
+
+function handleSearch(val) {
+  searchQuery = (val || '').trim().toLowerCase();
+  
+  // Sincronizar los campos de búsqueda (desktop y mobile)
+  const inputs = document.querySelectorAll('input[name="search-box"]');
+  inputs.forEach(input => {
+    if (input.value !== val) input.value = val;
+  });
+
+  const clearBtn = document.getElementById('btn-clear-search');
+  if (clearBtn) {
+    if (searchQuery) clearBtn.classList.remove('hidden');
+    else clearBtn.classList.add('hidden');
+  }
+
+  renderHeader();
+  renderCards();
+}
+
+function clearSearch() {
+  const inputs = document.querySelectorAll('input[name="search-box"]');
+  inputs.forEach(input => input.value = '');
+  searchQuery = '';
+  
+  const clearBtn = document.getElementById('btn-clear-search');
+  if (clearBtn) clearBtn.classList.add('hidden');
+
+  renderHeader();
+  renderCards();
+}
+
+function resetFilters() {
+  currentUnit = 'all';
+  currentType = 'all';
+  onlyFavorites = false;
+  clearSearch();
+  renderNavigation();
+  renderFilters();
+  renderHeader();
+  renderCards();
+}
+
+/* ==========================================================================
+   Utilidades: Notificaciones, Portapapeles y Sanitización
+   ========================================================================== */
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function copyResourceUrl(url) {
+  copyTextHelper(url);
+  showToast('Enlace copiado al portapapeles');
+}
+
+function copyCurrentPageUrl() {
+  copyTextHelper(window.location.href);
+  showToast('Enlace de la página copiado');
+}
+
+function copyTextHelper(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).catch(() => {
+      fallbackCopyText(text);
+    });
+  } else {
+    fallbackCopyText(text);
+  }
+}
+
+function fallbackCopyText(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  try {
+    document.execCommand('copy');
+  } catch (e) {
+    console.error('Error al copiar texto:', e);
+  }
+  document.body.removeChild(textarea);
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  const text = document.getElementById('toast-message');
+  if (!toast || !text) return;
+  text.innerText = msg;
+  toast.classList.remove('translate-y-20', 'opacity-0');
+  toast.classList.add('translate-y-0', 'opacity-100');
+  setTimeout(() => {
+    toast.classList.remove('translate-y-0', 'opacity-100');
+    toast.classList.add('translate-y-20', 'opacity-0');
+  }, 3000);
+}
+
+  </script>
 </body>
 </html>
