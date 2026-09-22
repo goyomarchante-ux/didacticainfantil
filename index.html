@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Didáctica de la Educación Infantil | Portal de Recursos</title>
+  
+  <!-- Metadatos Educativos y Open Graph -->
+  <meta name="description" content="Centro de recursos didácticos, presentaciones, marco normativo LOMLOE, guías DUA y propuestas pedagógicas para el módulo de Didáctica de la Educación Infantil (FP TSEI)." />
+  <meta property="og:title" content="Didáctica de la Educación Infantil | Portal de Recursos" />
+  <meta property="og:description" content="Plataforma de recursos, presentaciones, normativa LOMLOE y materiales para el aula de FP Infantil." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              200: '#fecdd3',
+              400: '#fb7185',
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+              900: '#881337',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Estilos Modulares -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col custom-scrollbar">
+
+  <!-- Cabecera de Navegación -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-18 gap-3">
+        
+        <!-- Logotipo y Título Principal -->
+        <a href="#" class="flex items-center gap-3 group focus:outline-hidden">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 via-rose-500 to-amber-400 flex items-center justify-center text-white shadow-md shadow-rose-500/20 group-hover:scale-105 transition-transform duration-200">
+            <i class="fa-solid fa-shapes text-xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-display font-black text-slate-900 text-lg sm:text-xl tracking-tight">Didáctica Infantil</span>
+              <span class="px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider bg-rose-50 text-rose-700 rounded-full border border-rose-200">FP Superior</span>
+            </div>
+            <p class="text-xs text-slate-500 hidden sm:block font-medium">Ciclo Formativo en Educación Infantil · Centro de Recursos</p>
+          </div>
+        </a>
+
+        <!-- Buscador Central en Desktop -->
+        <div class="hidden md:flex flex-1 max-w-md mx-4">
+          <div class="relative w-full">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i class="fa-solid fa-magnifying-glass text-sm"></i>
+            </span>
+            <input
+              type="text"
+              name="search-box"
+              id="global-search-input"
+              oninput="handleSearch(this.value)"
+              placeholder="Buscar tema, autor, #DUA, #LOMLOE, leyes o vídeos..."
+              class="w-full pl-10 pr-9 py-2 text-sm bg-slate-100 hover:bg-slate-50 focus:bg-white text-slate-800 placeholder-slate-400 rounded-xl border border-transparent focus:border-rose-400 focus:ring-3 focus:ring-rose-100 outline-hidden transition duration-150"
+            />
+            <button
+              id="btn-clear-search"
+              onclick="clearSearch()"
+              class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 hidden"
+              title="Limpiar búsqueda"
+            >
+              <i class="fa-solid fa-circle-xmark text-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Acciones Rápidas: PDI, Modo Docente y Temario -->
+        <div class="flex items-center gap-2 sm:gap-2.5">
+          <!-- Botón de Modo Proyector / PDI -->
+          <button 
+            id="btn-projector-toggle" 
+            onclick="toggleProjectorMode()" 
+            class="px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition flex items-center gap-1.5 shadow-xs"
+            title="Optimizar vista para proyectar en el aula"
+          >
+            <i class="fa-solid fa-chalkboard text-slate-600"></i>
+            <span class="hidden sm:inline">Modo PDI</span>
+          </button>
+
+          <!-- Herramientas Docentes Protegidas -->
+          <div id="teacher-tools" class="hidden flex items-center gap-1.5 sm:gap-2">
+            <button 
+              onclick="openSheetsExportModal()" 
+              class="px-2.5 sm:px-3 py-2 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 rounded-xl border border-emerald-200 transition flex items-center gap-1.5 shadow-xs"
+              title="Crear o exportar a Google Sheet"
+            >
+              <i class="fa-solid fa-file-excel text-emerald-600"></i>
+              <span class="hidden lg:inline">Crear Google Sheet</span>
+            </button>
+
+            <button 
+              onclick="openSyncModal()" 
+              id="btn-sync-status"
+              class="px-2.5 sm:px-3 py-2 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-xl border border-indigo-200 transition flex items-center gap-1.5 shadow-xs"
+              title="Sincronizar con Google Sheets en directo"
+            >
+              <i class="fa-solid fa-rotate text-indigo-600" id="sync-icon"></i>
+              <span id="sync-label" class="hidden sm:inline">Hoja en Vivo</span>
+            </button>
+
+            <button 
+              onclick="openTutorialModal()" 
+              class="px-2.5 sm:px-3 py-2 text-xs font-semibold text-amber-800 bg-amber-50 hover:bg-amber-100 rounded-xl border border-amber-200 transition flex items-center gap-1.5 shadow-xs"
+              title="Guía: cómo añadir nuevos documentos"
+            >
+              <i class="fa-solid fa-circle-plus text-amber-600"></i>
+              <span class="hidden xl:inline">Añadir Documentos</span>
+            </button>
+
+            <button 
+              onclick="openExportModal()" 
+              class="px-2.5 sm:px-3 py-2 text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 rounded-xl border border-rose-200 transition flex items-center gap-1.5 shadow-xs"
+              title="Incrustar en Google Sites"
+            >
+              <i class="fa-brands fa-google text-rose-500"></i>
+              <span class="hidden xl:inline">Google Sites</span>
+            </button>
+          </div>
+
+          <!-- Botón de Modo Docente -->
+          <button 
+            id="btn-teacher-toggle" 
+            onclick="handleTeacherToggle()" 
+            class="px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 transition flex items-center gap-1.5 shadow-xs"
+            title="Zona de acceso exclusivo para el profesorado"
+          >
+            <i class="fa-solid fa-lock text-slate-500" id="teacher-lock-icon"></i>
+            <span id="teacher-btn-text" class="hidden sm:inline">Acceso Docente</span>
+          </button>
+
+          <!-- Botón Rápido a Temario -->
+          <a href="#unidades" class="px-3 py-2 text-xs sm:text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-xs transition flex items-center gap-1.5">
+            <i class="fa-solid fa-book-open text-rose-400"></i>
+            <span class="hidden sm:inline">Temario</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Buscador Móvil -->
+      <div class="pb-3 md:hidden">
+        <div class="relative w-full">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+          </span>
+          <input
+            type="text"
+            name="search-box"
+            oninput="handleSearch(this.value)"
+            placeholder="Buscar por tema, #DUA, autor, LOMLOE..."
+            class="w-full pl-9 pr-8 py-2 text-xs bg-slate-100 rounded-xl border border-slate-200 focus:bg-white focus:border-rose-400 outline-hidden"
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sección Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-white via-rose-50/40 to-slate-50 pt-8 pb-10 border-b border-slate-200/70">
+    <div class="absolute inset-0 -z-10 opacity-30 pointer-events-none bg-[radial-gradient(#e11d48_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100/70 border border-rose-200 text-rose-800 text-xs font-semibold mb-4">
+          <span class="w-2 h-2 rounded-full bg-rose-500 live-dot"></span>
+          <span>Repositorio Oficial de Materiales · Formación Profesional</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black font-display text-slate-900 tracking-tight leading-tight">
+          Didáctica de la <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600">Educación Infantil</span>
+        </h1>
+        
+        <p class="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
+          Plataforma integral con todas las presentaciones, normativas vigentes (LOMLOE, Decretos de Infantil), propuestas pedagógicas, guías DUA y recursos didácticos actualizados para el aula.
+        </p>
+
+        <!-- Indicadores de métricas -->
+        <div class="mt-6 flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-slate-600">
+          <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-slate-200/80 shadow-xs">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+            <span class="font-semibold text-slate-800" id="stat-total-resources">0</span> recursos indexados
+          </div>
+          <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-slate-200/80 shadow-xs">
+            <i class="fa-solid fa-folder-tree text-indigo-500"></i>
+            <span class="font-semibold text-slate-800">10 Unidades Didácticas</span> (U.0 a U.9)
+          </div>
+          <div id="badge-sheet-connected" class="hidden flex items-center gap-2 bg-emerald-50 text-emerald-800 px-3 py-1.5 rounded-xl border border-emerald-200 shadow-xs font-semibold">
+            <i class="fa-solid fa-cloud-check text-emerald-600"></i>
+            <span>Google Sheets Vinculado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenedor Principal: Filtros y Recursos -->
+  <main id="unidades" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Barra de Filtros (Favoritos + Tipos de Material) -->
+    <div class="mb-6 bg-white p-3 rounded-2xl border border-slate-200/80 shadow-xs flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar w-full sm:w-auto pb-1 sm:pb-0" id="filter-types-container">
+        <!-- Renderizado dinámico desde app.js -->
+      </div>
+      <div class="text-xs text-slate-500 font-medium px-2" id="filtered-count-badge">
+        Mostrando todos los recursos
+      </div>
+    </div>
+
+    <!-- Diseño en 2 columnas: Menú de Unidades + Grid de Recursos -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Navegación lateral de Unidades (Desktop) -->
+      <aside class="lg:col-span-3 space-y-2">
+        <div class="sticky top-24 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+          <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-100">
+            <h2 class="font-display font-bold text-sm text-slate-900 uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-layer-group text-rose-500"></i>
+              <span>Unidades</span>
+            </h2>
+            <button onclick="filterByUnit('all')" class="text-xs text-rose-600 hover:text-rose-700 font-semibold">
+              Ver todas
+            </button>
+          </div>
+          
+          <nav class="space-y-1 custom-scrollbar max-h-[calc(100vh-12rem)] overflow-y-auto pr-1" id="unit-nav-container">
+            <!-- Rellenado dinámicamente -->
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Contenido Principal: Tarjetas de Recursos -->
+      <section class="lg:col-span-9 space-y-6">
+        
+        <!-- Encabezado de la Unidad seleccionada o resultado de búsqueda -->
+        <div id="unit-header" class="bg-gradient-to-r from-slate-900 to-indigo-950 rounded-2xl p-5 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span id="unit-tag-pill" class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-300 border border-rose-400/30">Todas las Unidades</span>
+            <h2 id="unit-header-title" class="text-xl sm:text-2xl font-bold font-display mt-2 tracking-tight">Recursos del Módulo</h2>
+            <p id="unit-header-desc" class="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">Consulta los documentos, presentaciones, directrices legislativas y vídeos complementarios.</p>
+          </div>
+          <div class="shrink-0 flex items-center gap-2">
+            <span id="unit-count-pill" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-white/10 text-white backdrop-blur-xs border border-white/10">0 recursos</span>
+          </div>
+        </div>
+
+        <!-- Rejilla de tarjetas de recursos -->
+        <div id="resources-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Tarjetas renderizadas dinámicamente -->
+        </div>
+
+        <!-- Estado vacío cuando no hay resultados -->
+        <div id="empty-state" class="hidden bg-white rounded-2xl p-12 text-center border border-dashed border-slate-300">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center text-2xl mb-4">
+            <i class="fa-solid fa-folder-open"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-slate-800">No se encontraron materiales</h3>
+          <p class="text-sm text-slate-500 mt-1 max-w-sm mx-auto">No hay ningún recurso que coincida con tus criterios de búsqueda o filtro seleccionado.</p>
+          <button onclick="resetFilters()" class="mt-4 px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-rose-600 rounded-xl transition shadow-xs">
+            Restablecer filtros
+          </button>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal: Crear y Exportar a Google Sheets -->
+  <div id="modal-sheets-export" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col">
+      <div class="p-5 border-b border-slate-100 bg-gradient-to-r from-emerald-800 to-teal-900 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-emerald-200 text-lg">
+            <i class="fa-solid fa-file-excel"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">Crear tu Google Sheet</h3>
+            <p class="text-xs text-emerald-200">Exporta todo el catálogo para gestionar tus materiales en la nube</p>
+          </div>
+        </div>
+        <button onclick="closeSheetsExportModal()" class="text-white/70 hover:text-white p-2 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-5 text-sm">
+        <p class="text-slate-600">
+          Puedes crear tu propia hoja de cálculo en dos sencillos pasos. Al terminar, podrás vincularla al portal pulsando en <strong>"Hoja en Vivo"</strong> para que cualquier cambio que hagas en tu Drive se refleje al instante.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Opción A: Copiar tabla al portapapeles -->
+          <div class="p-4 rounded-2xl bg-emerald-50/50 border border-emerald-200 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider block mb-1">Opción Rápida</span>
+              <h4 class="font-bold text-slate-800 text-sm">Copiar y Pegar en Google Sheets</h4>
+              <p class="text-xs text-slate-500 mt-1">Copia la tabla estructurada con todas las columnas y pégala en una hoja nueva de Drive con Ctrl + V.</p>
+            </div>
+            <div class="space-y-2 pt-2">
+              <button onclick="copyTableToClipboard()" id="btn-copy-tsv" class="w-full py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-copy"></i>
+                <span>Copiar Tabla Completa</span>
+              </button>
+              <a href="https://sheets.new" target="_blank" class="w-full py-2 px-3 bg-white hover:bg-slate-100 text-slate-700 font-semibold text-xs rounded-xl border border-slate-300 transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-arrow-up-right-from-square text-emerald-600"></i>
+                <span>Abrir Google Sheets en Blanco</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Opción B: Descargar archivo CSV -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-1">Opción Archivo</span>
+              <h4 class="font-bold text-slate-800 text-sm">Descargar Archivo CSV</h4>
+              <p class="text-xs text-slate-500 mt-1">Descarga el archivo formateado en UTF-8 con tildes y caracteres en español listo para importar en Drive o Excel.</p>
+            </div>
+            <div class="pt-2">
+              <button onclick="downloadCSVFile()" class="w-full py-2.5 px-3 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-download"></i>
+                <span>Descargar Archivo CSV</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs space-y-1">
+          <div class="font-bold flex items-center gap-1.5 text-amber-800">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Importante para la sincronización automática:</span>
+          </div>
+          <p>
+            Una vez creada tu hoja en Google Drive, pulsa el botón azul <strong>Compartir</strong> (arriba a la derecha), cambia el acceso a <strong>"Cualquier persona con el enlace"</strong> (modo Lector) y pega su URL en el botón <strong>"Hoja en Vivo"</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Sincronización Hoja en Vivo -->
+  <div id="modal-sync" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="p-5 border-b border-slate-100 bg-gradient-to-r from-indigo-900 to-slate-900 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-arrows-rotate"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">Vincular Hoja en Vivo</h3>
+            <p class="text-xs text-indigo-200">Conecta tu Google Sheets para actualizaciones automáticas</p>
+          </div>
+        </div>
+        <button onclick="closeSyncModal()" class="text-white/70 hover:text-white p-2">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-sm">
+        <p class="text-slate-600 text-xs leading-relaxed">
+          Pega el enlace o identificador de tu hoja de Google Sheets. Cada vez que edites filas en tu Drive, tus alumnos verán los cambios en la web al actualizar.
+        </p>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Enlace o ID de Google Sheets</label>
+          <input 
+            type="text" 
+            id="sheet-url-input" 
+            placeholder="https://docs.google.com/spreadsheets/d/1xd6OE.../edit"
+            class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-hidden"
+          />
+          <p class="text-[11px] text-slate-400 mt-1.5">La hoja debe tener permiso: "Cualquier persona con el enlace (Lector)".</p>
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <button onclick="disconnectSheet()" id="btn-disconnect-sheet" class="text-xs text-rose-600 hover:text-rose-700 font-semibold hidden">
+            Desvincular hoja actual
+          </button>
+          <div class="flex items-center gap-2 ml-auto">
+            <button onclick="closeSyncModal()" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800">
+              Cancelar
+            </button>
+            <button onclick="connectSheetFromModal()" class="px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition shadow-xs flex items-center gap-1.5">
+              <i class="fa-solid fa-bolt"></i>
+              <span>Sincronizar Ahora</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Tutorial de Inclusión de Documentos Nuevos -->
+  <div id="modal-tutorial" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col">
+      <div class="p-5 border-b border-slate-100 bg-gradient-to-r from-amber-600 to-rose-700 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center text-lg">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">Cómo Añadir Documentos Nuevos</h3>
+            <p class="text-xs text-amber-100">Guía para el profesorado para actualizar recursos</p>
+          </div>
+        </div>
+        <button onclick="closeTutorialModal()" class="text-white/70 hover:text-white p-2">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6 text-sm">
+        <div class="flex gap-4 items-start">
+          <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-amber-300">1</div>
+          <div>
+            <h4 class="font-bold text-slate-800 text-sm">Ubica la fila de la Unidad en tu Google Sheets</h4>
+            <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+              Abre tu Google Sheet en Google Drive. Busca la fila que encabeza la unidad correspondiente (por ejemplo: <code class="px-1.5 py-0.5 bg-slate-100 rounded text-rose-700 font-semibold">Unidad 3: Metodologías en educación infantil</code>).
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-amber-300">2</div>
+          <div>
+            <h4 class="font-bold text-slate-800 text-sm">Inserta una nueva fila con las 4 columnas</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-700 block">Columna A</span>
+                <span class="text-rose-600 font-semibold">Título</span>
+                <p class="text-[11px] text-slate-500 mt-1">Nombre claro del documento.</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-700 block">Columna B</span>
+                <span class="text-indigo-600 font-semibold">Descripción</span>
+                <p class="text-[11px] text-slate-500 mt-1">Breve resumen pedagógico.</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-700 block">Columna C</span>
+                <span class="text-emerald-600 font-semibold">Tipo</span>
+                <p class="text-[11px] text-slate-500 mt-1">Presentaciones, Normativa...</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-700 block">Columna D</span>
+                <span class="text-amber-600 font-semibold">Enlace</span>
+                <p class="text-[11px] text-slate-500 mt-1">URL de Drive, BOE o YouTube.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-amber-300">3</div>
+          <div>
+            <h4 class="font-bold text-slate-800 text-sm">Asegura los permisos de tu enlace de Drive</h4>
+            <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+              En tu documento de Google Drive, pulsa <strong>Compartir</strong> &rarr; <strong>Cualquier persona con el enlace (Lector)</strong> para que tus alumnos puedan abrirlo directamente.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-amber-300">4</div>
+          <div>
+            <h4 class="font-bold text-slate-800 text-sm">¡Actualización inmediata!</h4>
+            <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+              No tienes que tocar el código de la web. Cada vez que tus alumnos recarguen el portal o tú pulses en <strong>Hoja en Vivo</strong>, la web consultará tu Google Sheet automáticamente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Autenticación Modo Docente -->
+  <div id="modal-teacher-auth" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="p-5 border-b border-slate-100 bg-gradient-to-r from-slate-900 to-indigo-950 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-400/30 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-chalkboard-user"></i>
+          </div>
+          <div>
+            <h3 class="font-bold font-display text-sm">Zona del Profesorado</h3>
+            <p class="text-[11px] text-slate-300">Gestión de Google Sheets y herramientas</p>
+          </div>
+        </div>
+        <button onclick="closeTeacherModal()" class="text-slate-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-5 space-y-4">
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Introduce la clave de docente para habilitar las herramientas de gestión (sincronizar hojas, crear tablas y tutoriales).
+        </p>
+
+        <div>
+          <label class="text-[11px] font-bold text-slate-700 uppercase tracking-wider block mb-1">Clave de acceso</label>
+          <input 
+            type="password" 
+            id="teacher-password-input" 
+            placeholder="Introduce tu clave..." 
+            class="w-full text-sm px-3 py-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-rose-500 focus:ring-2 focus:ring-rose-200 outline-hidden"
+            onkeydown="if(event.key === 'Enter') verifyTeacherPassword()"
+          />
+          <p id="teacher-auth-error" class="text-xs text-rose-600 mt-1 hidden font-medium">Clave incorrecta. Vuelve a intentarlo.</p>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button onclick="closeTeacherModal()" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800">
+            Cancelar
+          </button>
+          <button onclick="verifyTeacherPassword()" class="px-4 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-rose-600 rounded-xl transition shadow-xs">
+            Acceder
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Integración en Google Sites -->
+  <div id="modal-export" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-xl w-full shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="p-5 border-b border-slate-100 bg-gradient-to-r from-rose-700 to-pink-700 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/20 text-white flex items-center justify-center text-lg">
+            <i class="fa-brands fa-google"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">Incrustar en Google Sites</h3>
+            <p class="text-xs text-rose-100">Publicación en el sitio institucional del centro</p>
+          </div>
+        </div>
+        <button onclick="closeExportModal()" class="text-white/70 hover:text-white p-2">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs sm:text-sm text-slate-600">
+        <ol class="space-y-3 list-decimal list-inside text-slate-700">
+          <li>Abre tu sitio en <a href="https://sites.google.com" target="_blank" class="text-rose-600 font-semibold underline">Google Sites</a> en modo edición.</li>
+          <li>En la barra lateral derecha, selecciona la pestaña <strong>Insertar</strong>.</li>
+          <li>Haz clic en <strong>Incrustar</strong> (<code class="bg-slate-100 px-1 py-0.5 rounded font-mono">&lt;/&gt;</code>).</li>
+          <li>Selecciona la pestaña <strong>"Mediante URL"</strong> y pega la URL de tu GitHub Pages.</li>
+          <li>Ajusta el ancho y alto del bloque arrastrando los puntos para que ocupe toda la pantalla.</li>
+        </ol>
+
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 text-xs flex items-center justify-between gap-2">
+          <span>También puedes compartir la URL de GitHub Pages directamente con tus alumnos.</span>
+          <button onclick="copyCurrentPageUrl()" class="px-2.5 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded font-semibold text-[11px] shrink-0">
+            Copiar URL
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notificaciones -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-800 flex items-center gap-3 text-xs font-semibold">
+      <i class="fa-solid fa-circle-check text-emerald-400 text-base" id="toast-icon"></i>
+      <span id="toast-message">Notificación</span>
+    </div>
+  </div>
+
+  <!-- Scripts Modulares (Arquitectura Serverless Zero-Build) -->
+  <script src="js/data.js"></script>
+  <script src="js/sheets.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

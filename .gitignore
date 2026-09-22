@@ -1,0 +1,22 @@
+# Sistema operativo
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+.DS_Store
+
+# Editores y entornos
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos temporales de Office y OneDrive
+~$*
+*.tmp
+*.bak
+
+# Logs
+*.log
